@@ -24,14 +24,14 @@ const server = express();
 server.use(
   session({
     name: "chocolatechip",
-    secret: "this is a secret",
+    secret: "this is a secret", // .env file
     cookie: {
       maxAge: 1000 * 60 * 60, // 1 hour
-      secure: false,
-      httpOnly: false,
+      secure: false, // if true, only works over TLS/https
+      httpOnly: false, // if true, cookie not in document
     },
-    resave: false,
-    saveUninitialized: false,
+    resave: false, // required by some session stores
+    saveUninitialized: false, // session not saved automatically
     store: new KnexSessionStore({
       knex: require("../data/db-config"),
       tablename: "sessions",
